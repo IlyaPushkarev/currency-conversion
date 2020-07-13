@@ -7,8 +7,10 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^26.0.4",
     "@types/lodash": "^4.14.157",
     "axios": "^0.19.2",
+    "axios-mock-adapter": "^1.18.1",
     "classnames": "^2.2.6",
     "lodash": "^4.17.19",
     "normalize.css": "^8.0.1",
@@ -18,13 +20,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
+    "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test -u",
     "eject": "react-scripts eject",
     "eslint": "node_modules/.bin/eslint src/"
   },

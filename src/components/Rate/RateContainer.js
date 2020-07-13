@@ -1,13 +1,23 @@
 import React from 'react'
 import Rate from './Rate'
 import { connect } from 'react-redux'
-import { getCurrencyNames, getLatestRate } from '../../redux/conversion-reducer'
+import {
+  changeBaseCurrency,
+  getCurrencyNames,
+  getLatestRate,
+  setElectCurrency,
+} from '../../redux/conversion-reducer'
 import { getCurrencyData } from '../../selectors/conversion-selectors'
 
 class RateContainer extends React.Component {
   componentDidMount() {
-    this.props.getRate()
-    this.props.getCurrencyNames()
+    // debugger
+    if (this.props.currencyData.length) {
+    } else {
+      // debugger
+      this.props.getRate(this.props.baseCurrency)
+      this.props.getCurrencyNames()
+    }
   }
 
   render() {
@@ -18,16 +28,24 @@ class RateContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currencyData: getCurrencyData(state),
+    baseCurrency: state.conversion.baseCurrency,
+    isLoading: state.conversion.isLoading,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRate: () => {
-      dispatch(getLatestRate())
+    getRate: (baseCurrency) => {
+      dispatch(getLatestRate(baseCurrency))
     },
     getCurrencyNames: () => {
       dispatch(getCurrencyNames())
+    },
+    changeBaseCurrency: (baseCurrency) => {
+      dispatch(changeBaseCurrency(baseCurrency))
+    },
+    setElectCurrency: (electCurrency) => {
+      dispatch(setElectCurrency(electCurrency))
     },
   }
 }
