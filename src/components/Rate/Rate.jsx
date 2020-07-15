@@ -1,15 +1,10 @@
 import React from 'react'
-
+import styles from './Rate.module.css'
 const Rate = (props) => {
   //debugger
-  function selectBaseCurrency(e) {
-    e.currentTarget.value && props.changeBaseCurrency(e.currentTarget.value)
-    e.currentTarget.blur()
-  }
 
   function addElectCurrency(e) {
     if (e.target.id === 'addElectCurrencyBtn') {
-      e.target.style.display = 'none'
       const electCurrency = props.currencyData.filter((item) => {
         if (+e.currentTarget.id === +item.id) {
           item.isElected = true
@@ -20,41 +15,70 @@ const Rate = (props) => {
       props.setElectCurrency(electCurrency[0])
     }
   }
+
   if (props.isLoading) {
     return <div>"Загрузка данных, не мешай компьютеру"</div>
   }
+
   return (
-    <div>
-      <div>
-        <span>Base currency</span>
-        <select
-          id="mainCurrency"
-          onChange={(e) => selectBaseCurrency(e)}
-          defaultValue={props.baseCurrency}
-        >
-          <option value={''}>Select currency</option>
-          <option value={'USD'}>Доллар</option>
-          <option value={'RUB'}>Рубль</option>
-          <option value={'EUR'}>Евро</option>
-        </select>
+    <div className={[styles['rate-wrapper']].join(' ')}>
+      <div className={[styles['rate-header']].join(' ')}>
+        <h1>Rate</h1>
+        <h2>(for 1 {props.baseCurrency})</h2>
       </div>
-      <h1>Rate</h1>
-      {props.currencyData.map((item) => {
-        return (
-          <div
-            key={item.id}
-            id={item.id}
-            onClick={function (e) {
-              addElectCurrency(e)
-            }}
-          >
-            <span>{item.contraction}</span>
-            <span>{item.fullName}</span>
-            <span>{item.rate}</span>
-            {!item.isElected && <span id={'addElectCurrencyBtn'}>+</span>}
-          </div>
-        )
-      })}
+      <div className={[styles['rate-body']].join(' ')}>
+        {!props.currencyData.length ? (
+          <div>List of currencies is empty</div>
+        ) : (
+          props.currencyData.map((item, i) => {
+            let classItem = ''
+            if (i === props.amountElectCurrencies - 1) {
+              classItem = [
+                styles['rate-body__item'],
+                styles['last-elect-currency'],
+              ].join(' ')
+            } else {
+              classItem = [styles['rate-body__item']].join(' ')
+            }
+            return (
+              <div
+                className={classItem}
+                key={item.id}
+                id={item.id}
+                onClick={function (e) {
+                  addElectCurrency(e)
+                }}
+              >
+                <span
+                  className={[styles['rate-body__item-contraction']].join(' ')}
+                >
+                  {item.contraction}
+                </span>
+                <span className={[styles['rate-body__item-name']].join(' ')}>
+                  {item.fullName}
+                </span>
+                <span className={[styles['rate-body__item-value']].join(' ')}>
+                  {item.rate}
+                </span>
+                {!item.isElected ? (
+                  <span
+                    className={[styles['rate-body__item-addBtn']].join(' ')}
+                    id={'addElectCurrencyBtn'}
+                  >
+                    +
+                  </span>
+                ) : (
+                  <span
+                    className={[styles['rate-body__item-addBtn']].join(' ')}
+                  >
+                    \/
+                  </span>
+                )}
+              </div>
+            )
+          })
+        )}
+      </div>
     </div>
   )
 }

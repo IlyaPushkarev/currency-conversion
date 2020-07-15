@@ -5,3 +5,9 @@
 .appWrapper__content{
 
 }
+
+@media (max-width: 400px) {
+    .appWrapper__content{
+    padding: 5px;
+    }
+}

@@ -1,0 +1,27 @@
+.hamburger-button {
+    position: relative;
+    left: 0vw;
+    top: 0vw;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    background: transparent;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+}
+
+.hamburger-item {
+    position: relative;
+    width: 2rem;
+    height: 0.25rem;
+    border-radius: 10px;
+    background: #00695c;
+}
+
+

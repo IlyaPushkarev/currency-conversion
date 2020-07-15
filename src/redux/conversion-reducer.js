@@ -247,7 +247,7 @@ export const convertCurrency = (val, from, to) => {
           val,
           from,
           to,
-          result: val * temp,
+          result: (val * temp).toFixed(2),
         }
         dispatch(setConvertResult(obj))
       })

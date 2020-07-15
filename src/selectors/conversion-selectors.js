@@ -16,6 +16,7 @@ export const electCurrencies = (state) => {
 /*export const getBaseCurrency = (state) => {
   return state.conversion.baseCurrency
 }*/
+
 export const getCurrencyData = createSelector(
   [rates, currencyNames, electCurrencies],
   (rates, currencyNames, electCurrencies) => {
@@ -26,7 +27,7 @@ export const getCurrencyData = createSelector(
     for (let key in rates) {
       temp['id'] = i
       temp['contraction'] = key
-      temp['rate'] = rates[key]
+      temp['rate'] = rates[key].toFixed(2)
       temp['fullName'] = currencyNames[key]
       temp['isElected'] = false
 
@@ -34,10 +35,20 @@ export const getCurrencyData = createSelector(
       temp = {}
       i++
     }
+    let newValueElectCurrencies = _.intersectionBy(rez, electCurrencies, 'id')
+    newValueElectCurrencies.forEach((item) => (item.isElected = true))
 
     rez = _.differenceBy(rez, electCurrencies, 'id')
-    rez.unshift(...electCurrencies)
+    rez.unshift(...newValueElectCurrencies)
 
     return rez
+  }
+)
+export const historyConvert = (state) => state.conversion.historyConvert
+
+export const getHistoryConvert = createSelector(
+  [historyConvert],
+  (historyConvert) => {
+    return historyConvert
   }
 )

@@ -1,0 +1,140 @@
+.converter-wrapper{
+
+}
+.converter-header{
+    padding: 2rem;
+    text-align: center;
+    color: #006064;
+}
+.converter-body{
+    padding: 1rem;
+}
+.converter-form-wrapper{
+    margin-bottom: 5rem;
+}
+.converter-form{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+.converter-form__input{
+    outline: none;
+    border: none;
+    padding: .5rem;
+    border-bottom: 2px solid #00695c ;
+}
+.converter-form__select-wrapper{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.converter-form__select-wrapper label{
+    margin-bottom: 1rem;
+}
+.converter-form__select{
+    outline: none;
+    padding: .4rem;
+    border: 2px solid #00695c;
+    color: #00695c;
+}
+.converter-form__submitBtn{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: .5rem 1rem;
+    border: 2px solid #00695c;
+    color: #00695c;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+}
+.converter-form__submitBtn:disabled{
+    font-weight: normal;
+    cursor: text;
+}
+
+.converter-form__submitBtn:disabled:hover{
+    transform: scale(1);
+}
+.converter-form__submitBtn:hover{
+    transform: scale(1.1);
+}
+
+.converter-result-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #004d40;
+}
+.converter-result__preloader{
+
+}
+
+.converter-result__title{
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-right: 1rem;
+}
+
+.converter-result__valueFrom,
+.converter-result__fromCurrency,
+.converter-result-valueTo,
+.converter-result__toCurrency{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-right: .5rem;
+}
+
+.converter-result__fromCurrency{
+    font-weight: 400;
+}
+
+.converter-result-valueTo{
+    margin-left: .5rem;
+}
+
+.converter-result__toCurrency{
+    font-weight: 400;
+}
+
+@media (max-width: 800px){
+    .converter-form{
+        flex-direction: column;
+        /*justify-content: center;*/
+        align-items: center;
+    }
+
+    .converter-form__input{
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    .converter-form__select-wrapper{
+        margin-bottom: 2rem;
+    }
+
+    .converter-form__select-wrapper,
+    .converter-form__submitBtn{
+        width: 50%;
+    }
+}
+
+@media (max-width: 400px){
+    .converter-header{
+        padding: 1rem;
+    }
+
+    .converter-form__select-wrapper,
+    .converter-form__submitBtn{
+        width: 70%;
+    }
+
+    .converter-result__title,
+    .converter-result__valueFrom,
+    .converter-result__fromCurrency,
+    .converter-result-valueTo,
+    .converter-result__toCurrency{
+        font-size: 1rem;
+        margin-right: .2rem;
+    }
+}

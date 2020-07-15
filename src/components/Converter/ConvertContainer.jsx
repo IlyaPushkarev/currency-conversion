@@ -2,9 +2,22 @@ import React from 'react'
 import Converter from './Converter'
 import { connect } from 'react-redux'
 import { getCurrencyData } from '../../selectors/conversion-selectors'
-import { convertCurrency } from '../../redux/conversion-reducer'
+import {
+  convertCurrency,
+  getCurrencyNames,
+  getLatestRate,
+} from '../../redux/conversion-reducer'
 
 class ConverterContainer extends React.Component {
+  componentDidMount() {
+    if (this.props.currencyData.length) {
+    } else {
+      // debugger
+      this.props.getRate(this.props.baseCurrency)
+      this.props.getCurrencyNames()
+    }
+  }
+
   render() {
     return <Converter {...this.props} />
   }
@@ -20,6 +33,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getRate: (baseCurrency) => {
+      dispatch(getLatestRate(baseCurrency))
+    },
+    getCurrencyNames: () => {
+      dispatch(getCurrencyNames())
+    },
     convertCurrency: (val, from, to) => {
       dispatch(convertCurrency(val, from, to))
     },

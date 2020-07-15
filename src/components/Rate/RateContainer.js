@@ -30,6 +30,7 @@ const mapStateToProps = (state) => {
     currencyData: getCurrencyData(state),
     baseCurrency: state.conversion.baseCurrency,
     isLoading: state.conversion.isLoading,
+    amountElectCurrencies: state.conversion.electCurrency.length,
   }
 }
 

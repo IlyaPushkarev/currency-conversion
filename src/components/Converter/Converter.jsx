@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import styles from './Converter.module.css'
 
 const Converter = (props) => {
+  // debugger
   const [isNewResult, setIsNewResult] = useState(false)
 
   const onSubmitForm = (e) => {
@@ -27,55 +29,126 @@ const Converter = (props) => {
   }
 
   return (
-    <div>
-      <h1>Converter</h1>
+    <div className={[styles['converter-wrapper']].join(' ')}>
+      <div className={[styles['converter-header']].join(' ')}>
+        <h1>Converter</h1>
+      </div>
+      <div className={[styles['converter-body']].join(' ')}>
+        <div className={[styles['converter-form-wrapper']].join(' ')}>
+          <form
+            className={[styles['converter-form']].join(' ')}
+            id={'convertForm'}
+            onSubmit={(e) => onSubmitForm(e)}
+          >
+            <input
+              className={[styles['converter-form__input']].join(' ')}
+              onChange={(e) => {
+                !e.target.value && setIsNewResult(false)
+                e.target.value && setIsNewResult(true)
+              }}
+              name={'inputValue'}
+              type="number"
+              id={'fromInput'}
+              min={1}
+              autoFocus
+            />
+            <div
+              className={[styles['converter-form__select-wrapper']].join(' ')}
+            >
+              <label htmlFor="fromSelect">From</label>
+              <select
+                className={[styles['converter-form__select']].join(' ')}
+                name="currencyFrom"
+                id="fromSelect"
+                value={props.baseCurrency}
+                onChange={() => {}}
+              >
+                {props.currencyData.map((item) => {
+                  return (
+                    <option key={item.id} value={item.contraction}>
+                      {item.fullName}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
 
-      <form id={'convertForm'} onSubmit={(e) => onSubmitForm(e)}>
-        <input
-          onChange={(e) => {
-            !e.target.value && setIsNewResult(false)
-          }}
-          name={'inputValue'}
-          type="number"
-          id={'fromInput'}
-          min={1}
-          autoFocus
-        />
+            <div
+              className={[styles['converter-form__select-wrapper']].join(' ')}
+            >
+              <label htmlFor="currencyTo">To</label>
+              <select
+                className={[styles['converter-form__select']].join(' ')}
+                name="currencyTo"
+                id="toSelect"
+              >
+                {props.currencyData.map((item) => {
+                  return (
+                    <option key={item.id} value={item.contraction}>
+                      {item.fullName}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
 
-        <select
-          name="currencyFrom"
-          id="fromSelect"
-          defaultValue={props.baseCurrency}
-        >
-          {props.currencyData.map((item) => {
-            return (
-              <option key={item.id} value={item.contraction}>
-                {item.fullName}
-              </option>
-            )
-          })}
-        </select>
+            <button
+              className={[styles['converter-form__submitBtn']].join(' ')}
+              type="submit"
+              disabled={!isNewResult}
+            >
+              convert
+            </button>
+          </form>
+        </div>
 
-        <select name="currencyTo" id="toSelect">
-          {props.currencyData.map((item) => {
-            return (
-              <option key={item.id} value={item.contraction}>
-                {item.fullName}
-              </option>
-            )
-          })}
-        </select>
-        <button type="submit">convert</button>
-      </form>
-      {props.isLoading ? (
-        <div>"Компьютер счетает деньги"</div>
-      ) : (
-        <div>
-          {isNewResult && props.converts.length > 0 && (
-            <span>{props.converts[props.converts.length - 1].result}</span>
+        <div className={[styles['converter-result-wrapper']].join(' ')}>
+          {props.isLoading ? (
+            <div className={[styles['converter-result__preloader']].join(' ')}>
+              Компьютер счетает деньги
+            </div>
+          ) : (
+            <>
+              {isNewResult && props.converts.length > 0 && (
+                <>
+                  <span
+                    className={[styles['converter-result__title']].join(' ')}
+                  >
+                    Result:
+                  </span>
+                  <span
+                    className={[styles['converter-result__valueFrom']].join(
+                      ' '
+                    )}
+                  >
+                    {props.converts[props.converts.length - 1].val}
+                  </span>
+                  <span
+                    className={[styles['converter-result__fromCurrency']].join(
+                      ' '
+                    )}
+                  >
+                    {props.converts[props.converts.length - 1].from}
+                  </span>
+                  =
+                  <span
+                    className={[styles['converter-result-valueTo']].join(' ')}
+                  >
+                    {props.converts[props.converts.length - 1].result}
+                  </span>
+                  <span
+                    className={[styles['converter-result__toCurrency']].join(
+                      ' '
+                    )}
+                  >
+                    {props.converts[props.converts.length - 1].to}
+                  </span>
+                </>
+              )}
+            </>
           )}
         </div>
-      )}
+      </div>
     </div>
   )
 }
