@@ -50,7 +50,7 @@ describe('Convert func', () => {
 
   it('when submit data form successful', () => {
     // converter = shallow(<Converter {...props} />)
-    console.log(props)
+    // console.log(props)
     converter.find('form').simulate('submit', {
       preventDefault: () => {},
       currentTarget: {

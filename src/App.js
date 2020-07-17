@@ -8,7 +8,7 @@ import HeaderContainer from './components/Header/HeaderContainer'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className={styles.appWrapper}>
         <HeaderContainer />
         <div className={styles.appWrapper__content}>

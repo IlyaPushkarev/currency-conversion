@@ -145,7 +145,7 @@ describe('async action creator for conversion-reducer', () => {
 
   it('get latest rate failure', (done) => {
     const getLatestCurrencyMockFailure = (baseOn) =>
-      mock.onGet('latest?base=${baseOn}').reply(503, {
+      mock.onGet(`latest?base=${baseOn}`).reply(503, {
         error: 'Some error',
       })
     const expectedActions = [

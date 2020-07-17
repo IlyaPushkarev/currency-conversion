@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Converter.module.css'
 
 const Converter = (props) => {
   // debugger
   const [isNewResult, setIsNewResult] = useState(false)
+  const [selectVal, setSelectVal] = useState(props.baseCurrency)
+  const [correctVal, setCorrectVal] = useState(false)
+
+  useEffect(() => {
+    setSelectVal(props.baseCurrency)
+    setIsNewResult(false)
+  }, [props.baseCurrency])
 
   const onSubmitForm = (e) => {
     e.preventDefault()
@@ -12,7 +19,6 @@ const Converter = (props) => {
       e.currentTarget.elements['currencyTo'].value
     ) {
       alert('Choose another currency')
-      return
     }
 
     if (e.currentTarget.elements['inputValue'].value) {
@@ -22,9 +28,9 @@ const Converter = (props) => {
         e.currentTarget.elements['currencyFrom'].value,
         e.currentTarget.elements['currencyTo'].value
       )
+      e.currentTarget.elements['inputValue'].value = ''
     } else {
       alert('Insert amount of currency')
-      return
     }
   }
 
@@ -43,9 +49,9 @@ const Converter = (props) => {
             <input
               className={[styles['converter-form__input']].join(' ')}
               onChange={(e) => {
-                !e.target.value && setIsNewResult(false)
-                e.target.value && setIsNewResult(true)
+                e.target.value && setCorrectVal(true)
               }}
+              onFocus={() => setIsNewResult(false)}
               name={'inputValue'}
               type="number"
               id={'fromInput'}
@@ -60,8 +66,8 @@ const Converter = (props) => {
                 className={[styles['converter-form__select']].join(' ')}
                 name="currencyFrom"
                 id="fromSelect"
-                value={props.baseCurrency}
-                onChange={() => {}}
+                value={selectVal}
+                onChange={(e) => setSelectVal(e.target.value)}
               >
                 {props.currencyData.map((item) => {
                   return (
@@ -95,7 +101,7 @@ const Converter = (props) => {
             <button
               className={[styles['converter-form__submitBtn']].join(' ')}
               type="submit"
-              disabled={!isNewResult}
+              disabled={!correctVal}
             >
               convert
             </button>
