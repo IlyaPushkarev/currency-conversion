@@ -115,7 +115,7 @@ const Converter = (props) => {
             </div>
           ) : (
             <>
-              {isNewResult && props.converts.length > 0 && (
+              {correctVal && isNewResult && props.converts.length > 0 && (
                 <>
                   <span
                     className={[styles['converter-result__title']].join(' ')}
