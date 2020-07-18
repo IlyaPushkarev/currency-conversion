@@ -111,7 +111,7 @@ const Converter = (props) => {
         <div className={[styles['converter-result-wrapper']].join(' ')}>
           {props.isLoading ? (
             <div className={[styles['converter-result__preloader']].join(' ')}>
-              Компьютер счетает деньги
+              Компьютер считает деньги
             </div>
           ) : (
             <>
