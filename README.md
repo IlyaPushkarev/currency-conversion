@@ -1,5 +1,3 @@
-Github pages don't work, because account API settings don't allow access.
-Localhost works 
 
 ## Available Scripts
 
