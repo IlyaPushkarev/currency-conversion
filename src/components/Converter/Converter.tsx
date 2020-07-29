@@ -1,7 +1,24 @@
 import React, { useEffect, useState } from 'react'
+// @ts-ignore
 import styles from './Converter.module.css'
 
-const Converter = (props) => {
+type ConverterProps = {
+  baseCurrency: string,
+  convertCurrency(val:number,from:string,to:string):void,
+  currencyData: {
+    id:number,
+    contraction:string,
+    rate:number,
+    fullName: string,
+    isElected : boolean
+  }[],
+  isLoading:boolean
+  converts: {
+    [index:string] :string | number,
+  }[]
+}
+
+const Converter = (props:ConverterProps) => {
   // debugger
   const [isNewResult, setIsNewResult] = useState(false)
   const [selectVal, setSelectVal] = useState(props.baseCurrency)
@@ -12,19 +29,20 @@ const Converter = (props) => {
     setIsNewResult(false)
   }, [props.baseCurrency])
 
-  const onSubmitForm = (e) => {
+  const onSubmitForm = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (
-      e.currentTarget.elements['currencyFrom'].value ===
+      (e.currentTarget.elements['currencyFrom']).value ===
       e.currentTarget.elements['currencyTo'].value
     ) {
       alert('Choose another currency')
+      return
     }
 
     if (e.currentTarget.elements['inputValue'].value) {
       setIsNewResult(true)
       props.convertCurrency(
-        e.currentTarget.elements['inputValue'].value,
+        +e.currentTarget.elements['inputValue'].value,
         e.currentTarget.elements['currencyFrom'].value,
         e.currentTarget.elements['currencyTo'].value
       )

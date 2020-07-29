@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import styles from './Header.module.css'
 import Menu from '../Menu/Menu'
 
-const Header = (props) => {
-  function selectBaseCurrency(e) {
+type HeaderProps = {
+  changeBaseCurrency(arg:string):void,
+  baseCurrency: string,
+  isLoading: boolean
+}
+
+const Header = (props:HeaderProps) => {
+
+  const  selectBaseCurrency = (e:ChangeEvent<HTMLSelectElement>)=> {
     e.currentTarget.value && props.changeBaseCurrency(e.currentTarget.value)
     e.currentTarget.blur()
   }
 
   return (
     <div className={[styles['header-wrapper']].join(' ')}>
+
       <Menu />
 
       <div className={styles['base-currency-wrapper']}>

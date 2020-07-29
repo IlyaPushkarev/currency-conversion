@@ -1,10 +1,27 @@
 import React from 'react'
 import styles from './Rate.module.css'
-const Rate = (props) => {
+
+type RateProps = {
+  currencyData: {
+    id: number,
+    contraction:string,
+    rate:number,
+    fullName: string,
+    isElected : boolean
+  }[],
+  baseCurrency: string,
+  isLoading: boolean,
+  amountElectCurrencies: number,
+  getRate(baseCurrency:string):void,
+  getCurrencyNames():void,
+  changeBaseCurrency(baseCurrency:string):void,
+  setElectCurrency(electCurrency:object):void
+}
+const Rate = (props:RateProps) => {
   //debugger
 
-  function addElectCurrency(e) {
-    if (e.target.id === 'addElectCurrencyBtn') {
+  function addElectCurrency(e:React.MouseEvent) {
+    if ((e.target as HTMLElement).id === 'addElectCurrencyBtn') {
       const electCurrency = props.currencyData.filter((item) => {
         if (+e.currentTarget.id === +item.id) {
           item.isElected = true
@@ -31,7 +48,7 @@ const Rate = (props) => {
           <div>List of currencies is empty</div>
         ) : (
           props.currencyData.map((item, i) => {
-            let classItem = ''
+            let classItem
             if (i === props.amountElectCurrencies - 1) {
               classItem = [
                 styles['rate-body__item'],
@@ -44,7 +61,7 @@ const Rate = (props) => {
               <div
                 className={classItem}
                 key={item.id}
-                id={item.id}
+                id={""+item.id}
                 onClick={function (e) {
                   addElectCurrency(e)
                 }}
